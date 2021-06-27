@@ -2,6 +2,7 @@ package velogteam.velogcloneproject.domain.users;
 
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,12 +10,12 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotNull
     private String name;
     @NotNull
