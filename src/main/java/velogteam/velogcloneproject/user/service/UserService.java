@@ -1,4 +1,4 @@
-package velogteam.velogcloneproject.domain.users;
+package velogteam.velogcloneproject.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
