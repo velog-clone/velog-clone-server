@@ -1,6 +1,5 @@
 package velogteam.velogcloneproject.post.controller.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
