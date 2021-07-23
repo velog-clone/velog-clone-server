@@ -8,13 +8,14 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import velogteam.velogcloneproject.user.domain.SocialType;
-import velogteam.velogcloneproject.user.domain.User;
-import velogteam.velogcloneproject.user.domain.UserRepository;
 import velogteam.velogcloneproject.exception.OAuth2AuthenticationProcessingException;
 import velogteam.velogcloneproject.security.UserPrincipal;
 import velogteam.velogcloneproject.security.oauth2.user.OAuth2UserInfo;
 import velogteam.velogcloneproject.security.oauth2.user.OAuth2UserInfoFactory;
+import velogteam.velogcloneproject.user.domain.Role;
+import velogteam.velogcloneproject.user.domain.SocialType;
+import velogteam.velogcloneproject.user.domain.User;
+import velogteam.velogcloneproject.user.domain.UserRepository;
 
 import java.util.Locale;
 
@@ -50,11 +51,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
         SocialType socialType = SocialType.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId().toUpperCase(Locale.ROOT));
-        return User.builder()
-                .email(oAuth2UserInfo.getEmail())
-                .name(oAuth2UserInfo.getName())
-                .providerId(oAuth2UserInfo.getId())
-                .socialType(socialType)
-                .build();
+        return userRepository.save(
+                User.builder()
+                        .email(oAuth2UserInfo.getEmail())
+                        .name(oAuth2UserInfo.getName())
+                        .providerId(oAuth2UserInfo.getId())
+                        .socialType(socialType)
+                        .role(Role.USER)
+                        .build()
+        );
+
     }
 }

@@ -5,7 +5,7 @@ spring:
     import: classpath:application-oauth2.yaml
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/velogdb?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/velogdb?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8
     username: root
     password: 1234
   jpa:
@@ -14,14 +14,19 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        globally_quoted_identifiers: true
+    hibernate:
+      ddl-auto: create
 
 app:
   auth:
-    tokenSecret: osda91kkadvp0DKn
+    tokenSecret: osda91kkadvp0DKnqwervcxvq5fbvsadf124vbzxvAdfsfdavfas35asvcsaxz
     tokenExpirationMsec: 864000000
   oauth2:
     authorizedRedirectUris:
       - http://localhost:8080/oauth2/redirect
-logging:
-  level:
-    root: debug
+      - http://localhost:8080/test
+      - https://37124dc615d3.ngrok.io/test
+#logging:
+#  level:
+#    root: debug
