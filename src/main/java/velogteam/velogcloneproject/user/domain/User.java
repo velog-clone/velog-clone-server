@@ -13,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Getter
+@Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
@@ -20,16 +21,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     private String name;
+
+    private String password;
+
+    @Column(name = "id_str")
+    private String idString;
 
     @NotNull
     private String email;
 
-    @NotNull
-    private String password;
-
-    @NotNull
     @Column(name = "page_title")
     private String pageTitle;
 
@@ -39,7 +40,6 @@ public class User {
     @Column(name = "simple_introduction")
     private String simpleIntroduction;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -53,8 +53,10 @@ public class User {
     private Set<Post> posts = new LinkedHashSet<>();
 
     @Builder
-    public User(String name, String email, String password, String pageTitle, String socialInfo,
-                String simpleIntroduction, Role role, SocialType socialType, String providerId) {
+    public User(Long id, String name,String password, String email, String pageTitle,
+                String socialInfo, String simpleIntroduction, Role role,
+                SocialType socialType, String providerId) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -68,6 +70,12 @@ public class User {
 
     public void addPost(Post post){
         posts.add(post);
+    }
+
+    public void userInfoRegister(String name, String idString, String simpleIntroduction){
+        this.name = name;
+        this.idString = idString;
+        this.simpleIntroduction = simpleIntroduction;
     }
 
     public void removePost(Post post){
